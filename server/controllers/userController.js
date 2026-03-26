@@ -23,12 +23,13 @@ export const signup = async (req, res) => {
             email,
             fullName,
             password: hashedPassword,
-            bio
+            bio,
+            profilePic: ""
         });
 
         const token = generateToken(newUser._id)
 
-        res.json({success: true, message: "Account created successfully", userData: newUser});
+        res.json({success: true, message: "Account created successfully", userData: newUser, token});
     } catch (error) {
         console.log(error.message);
         res.json({success: false, message: error.message})

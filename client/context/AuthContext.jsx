@@ -21,11 +21,12 @@ export const AuthProvider = ({ children })=>{
         try {
          const { data } = await axios.get("/api/auth/check");
          if(data.success){
-            setAuthUser(data.User)
-            connectSocket(data.User)
+            setAuthUser(data.user)
+            connectSocket(data.user)
          }
         } catch (error) {
-            toast.error(error.message)
+            const message = error.response?.data?.message || error.message;
+            toast.error(message);
         }
     }
 
@@ -38,9 +39,10 @@ export const AuthProvider = ({ children })=>{
             setAuthUser(data.userData);
             connectSocket(data.userData);
             axios.defaults.headers.common["token"] = data.token;
+            axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
             setToken(data.token);
-            localStorage.setItem("token", data.token)
-            toast.success(data.message)
+            localStorage.setItem("token", data.token);
+            toast.success(data.message);
            }
            else{
             toast.error(data.message)
@@ -56,9 +58,10 @@ export const AuthProvider = ({ children })=>{
         setToken(null);
         setAuthUser(null);
         setOnlineUsers([]);
-        axios.defaults.headers.common["token"] = null;
-        toast.success("Logged out successfully")
-        socket.disconnect();
+        delete axios.defaults.headers.common["token"];
+        delete axios.defaults.headers.common["Authorization"];
+        toast.success("Logged out successfully");
+        socket?.disconnect();
     }
 
 
@@ -69,9 +72,15 @@ export const AuthProvider = ({ children })=>{
             if(data.success){
                 setAuthUser(data.user);
                 toast.success("Profile updated successfully")
+                return true;
+            } else {
+                toast.error(data.message || "Unable to update profile")
+                return false;
             }
         } catch (error) {
-            toast.error(error.message)
+            const message = error.response?.data?.message || error.message;
+            toast.error(message);
+            return false;
         }
     }
 
@@ -95,9 +104,13 @@ export const AuthProvider = ({ children })=>{
     useEffect(()=>{
        if(token){
         axios.defaults.headers.common["token"] = token;
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+       } else {
+        delete axios.defaults.headers.common["token"];
+        delete axios.defaults.headers.common["Authorization"];
        }
        checkAuth();
-    },[])
+    },[token])
 
     const value = {
         axios,
