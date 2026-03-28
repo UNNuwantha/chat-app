@@ -25,6 +25,13 @@ export const AuthProvider = ({ children })=>{
             connectSocket(data.user)
          }
         } catch (error) {
+            const status = error.response?.status;
+            if (status === 401) {
+                // No token or invalid token: clear auth state silently
+                setAuthUser(null);
+                setOnlineUsers([]);
+                return;
+            }
             const message = error.response?.data?.message || error.message;
             toast.error(message);
         }
@@ -105,11 +112,14 @@ export const AuthProvider = ({ children })=>{
        if(token){
         axios.defaults.headers.common["token"] = token;
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        checkAuth();
        } else {
         delete axios.defaults.headers.common["token"];
         delete axios.defaults.headers.common["Authorization"];
+        // no token = no need to call protected check endpoint
+        setAuthUser(null);
+        setOnlineUsers([]);
        }
-       checkAuth();
     },[token])
 
     const value = {
