@@ -4,6 +4,7 @@
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen)
 ![React](https://img.shields.io/badge/react-%5E18.2.0-blue)
+![MongoDB](https://img.shields.io/badge/mongodb-%3E%3D6.0-4ea94b)
 
 > A polished full-stack real-time chat app with authentication, media upload, and chat history.
 
@@ -145,5 +146,5 @@ MIT
 
 ## 🙋 Maintainer
 - Name: `Nipuna`
-- Email: `your-email@example.com`
+- Email: `www.nadun50@gmail.com`
 
