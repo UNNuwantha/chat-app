@@ -9,6 +9,13 @@
 > A polished full-stack real-time chat app with authentication, media upload, and chat history.
 
 ---
+![image alt](https://github.com/UNNuwantha/chat-app/blob/master/client/src/assets/image1.png?raw=true)
+![image alt](https://github.com/UNNuwantha/chat-app/blob/master/client/src/assets/image2.png?raw=true)
+![image alt](https://github.com/UNNuwantha/chat-app/blob/master/client/src/assets/image3.png?raw=true)
+![image alt](https://github.com/UNNuwantha/chat-app/blob/master/client/src/assets/image4.png?raw=true)
+![image alt](https://github.com/UNNuwantha/chat-app/blob/master/client/src/assets/image5.png?raw=true)
+![image alt](https://github.com/UNNuwantha/chat-app/blob/master/client/src/assets/image6.png?raw=true)
+
 
 ## 🌟 Highlights
 
